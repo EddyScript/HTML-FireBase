@@ -1,61 +1,39 @@
-let itemBox = document.getElementById("itemBox")
-let storeSelect = document.getElementById("storeSelect")
-let addItem = document.getElementById("addItem")
-let hebList = document.getElementById("hebList")
-let fiestaList = document.getElementById("fiestaList")
-let samsList = document.getElementById("samsList")
+<html>
+<body>
+<script src="jQuery3.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-database.js"></script>
+<script>
+var config = {
+  databaseURL: "https://groceries-b4301.firebaseio.com/",
+  projectId:"groceries-b4301",
+};
+firebase.initializeApp(config);
+console.log(firebase)
+</script>
 
-let database = firebase.database()
-console.log(database)
+<h3>Grocery list</h3>
+<label>Store</label>
+<select id="storeSelect">
+  <option value="H-E-B">H-E-B</option>
+  <option value="Fiesta">Fiesta</option>
+  <option value="Sam's">Sam's</option>
+</select>
 
+<label>Items</label>
+<input type="text" id="itemBox" placeholder="Type item" />
+<button id="addItem">Add</button>
 
-addItem.addEventListener('click',function(){
-        let storeName = storeSelect.value
-        let itemName = itemBox.value
-    
-        let wholeList = {name: storeName, item: itemName}
+<h3>H-E-B</h3>
+<ul id="hebList">
+</ul>
+<h3>Fiesta</h3>
+<ul id="fiestaList">
+</ul>
+<h3>Sam's</h3>
+<ul id="samsList">
+</ul>
+</body>
 
-        createList(wholeList)
-})
-function createList(wholeList){
-    database.ref(wholeList.name).set(wholeList)
-}
-
-function delH(btn) {
-    hebList.removeChild(btn.parentElement)
-}function delF(btn) {
-    fiestaList.removeChild(btn.parentElement)
-}
-function delS(btn) {
-    samsList.removeChild(btn.parentElement)
-}
-addItem.addEventListener('click',function(){
-   if(storeSelect.value == "H-E-B"){
-     let item = `
-    <li>
-       <label>${itemBox.value} </label>
-       <button onclick="delH(this)"> Delete</button>
-    </li>
-    `
-    hebList.insertAdjacentHTML('beforeend',item)
-   }
-   if(storeSelect.value == "Fiesta"){
-     let item = `
-    <li>
-       <label>${itemBox.value} </label>
-       <button onclick="delF(this)"> Delete</button>
-    </li>
-    `
-    fiestaList.insertAdjacentHTML('beforeend',item)
-   }
-   if(storeSelect.value == "Sam's"){
-     let item = `
-    <li>
-       <label>${itemBox.value} </label>
-       <button onclick="delS(this)"> Delete </button>
-    </li>
-    `
-    samsList.insertAdjacentHTML('beforeend',item)
-   }
-})
-
+<script src="groceries.js"></script>
+</html>
